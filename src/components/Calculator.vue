@@ -9,9 +9,12 @@ const operate = (element: string) => {
   if (!formula.value && operators.includes(element)) {
     return;
   }
-  if (operators.includes(formula.value.slice(-1)) && operators.includes(element)) {
+  if (
+    operators.includes(formula.value.slice(-1)) &&
+    operators.includes(element)
+  ) {
     formula.value = formula.value.slice(0, -1) + element;
-    return
+    return;
   }
   formula.value += element;
 };
@@ -33,17 +36,13 @@ const percent = () => {
   result.value = eval(`0.01 * ${tempResult}`);
 };
 const toggle = () => {
-
   if (!formula.value) {
-    return
-  }
-  else if (operators.includes(formula.value.slice(-1))) {
-    formula.value = '-0';
-  }
-  else if (formula.value.startsWith("-")) {
+    return;
+  } else if (operators.includes(formula.value.slice(-1))) {
+    formula.value = "-0";
+  } else if (formula.value.startsWith("-")) {
     formula.value = Math.abs(eval(validate(formula.value))).toString();
-  }
-  else {
+  } else {
     formula.value = `-${Math.abs(eval(validate(formula.value))).toString()}`;
   }
   equal();
@@ -91,7 +90,7 @@ const toggle = () => {
 .calculator {
   background-color: var(--color-background-body);
   margin: 0;
-  width: 350px;
+  width: 375px;
   overflow: hidden;
   justify-content: center;
   align-items: center;
@@ -109,17 +108,18 @@ const toggle = () => {
   display: flex;
   flex-direction: column;
 }
-
+.calculator .screen span {
+  overflow: hidden;
+}
 .calculator .screen .result {
   color: #fff;
   font-size: 80px;
-  overflow: hidden;
 }
 
 .calculator .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 70px);
-  grid-template-rows: repeat(5, 70px);
+  grid-template-columns: repeat(4, calc((100% - 30px) / 4));
+  grid-template-rows: repeat(5, 75px);
   gap: 10px;
 }
 
@@ -153,5 +153,27 @@ const toggle = () => {
 
 .calculator .buttons button:active {
   box-shadow: none;
+}
+@media screen and (max-width: 414px) {
+  .calculator {
+    width: 100%;
+  }
+}
+</style>
+<style>
+@media screen and (max-width: 414px) {
+  #app {
+    padding: 0 !important;
+    height: 100vh !important;
+  }
+  .calculator {
+    border-radius: 0 !important;
+  }
+  header{
+    display: none;
+  }
+  main{
+    height: 100% !important;
+  }
 }
 </style>

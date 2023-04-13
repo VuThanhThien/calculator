@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Calculater from "../components/Calculater.vue";
+import Calculator from "../components/Calculator.vue";
 </script>
 
 <template>
   <main>
-    <Calculater />
+    <Calculator />
   </main>
 </template>
 <style scoped>
